@@ -2,7 +2,7 @@ import ShareButton from '@/components/button/share.button';
 import SocialButton from '@/components/button/SocialButton';
 import ShareInput from '@/components/input/share.input';
 import { registerAPI } from '@/utils/api';
-import axios from 'axios';
+import Toast from 'react-native-root-toast';
 import { Link, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
 })
 
 const SignUpPage = () => {
-   const URL_BACKEND = process.env.EXPO_PUBLIC_API_URL;
    const [name, setName] = useState<string>('');
    const [email, setEmail] = useState<string>('');
    const [password, setPassword] = useState<string>('');
@@ -30,7 +29,13 @@ const SignUpPage = () => {
          if(res.data) {
             router.navigate('/(auth)/verify');
          } else {
-            alert(res.message);
+            const m = Array.isArray(res.message) ? res.message[0] : res.message;
+            Toast.show(m, {
+               duration: Toast.durations.LONG,
+               textColor: 'white',
+               backgroundColor: 'red',
+               opacity: 1
+            });
          }
       } catch (error) {
          console.log(error);
