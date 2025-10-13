@@ -5,7 +5,7 @@ import { registerAPI } from '@/utils/api';
 import Toast from 'react-native-root-toast';
 import { Link, router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Keyboard, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { APP_COLOR } from 'utils/constant';
 
@@ -24,10 +24,14 @@ const SignUpPage = () => {
 
    const hanldeSignUp = async () => {
       try {
+         Keyboard.dismiss();
          const res = await registerAPI(email, name, password);
          console.log(res);
          if(res.data) {
-            router.navigate('/(auth)/verify');
+            router.replace({
+               pathname: '/(auth)/verify',
+               params: { email: email }
+            });
          } else {
             const m = Array.isArray(res.message) ? res.message[0] : res.message;
             Toast.show(m, {

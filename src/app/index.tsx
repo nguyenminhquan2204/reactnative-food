@@ -39,12 +39,6 @@ const styles = StyleSheet.create({
 
 const WelcomePage = () => {
 
-   if(true) {
-      return(
-         <Redirect href={'/(auth)/signup'} />
-      )
-   }
-
    return (
       <ImageBackground
          style={{ flex: 1 }}
@@ -68,7 +62,9 @@ const WelcomePage = () => {
                   </Text>
                </View>
                <View style={styles.welcomeBtn}>
-                  <TextBetweenLine title='Đăng nhập với' />
+                  <TextBetweenLine 
+                     title='Đăng nhập với'
+                  />
                   <View style={{
                      flexDirection: 'row',
                      justifyContent: 'center',

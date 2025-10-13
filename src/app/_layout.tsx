@@ -1,30 +1,37 @@
 
 import { Stack } from "expo-router";
 import { RootSiblingParent } from 'react-native-root-siblings';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const RootLayout = () => {
    return (
       <RootSiblingParent>
-         <Stack
-            screenOptions={{
-               headerStyle: {
-                  backgroundColor: 'red'
-               },
-               headerTintColor: '#fff',
-               headerTitleStyle: {
-                  fontWeight: 'bold'
-               }
-            }}
-         >
-            <Stack.Screen
-               name="index"
-               options={{ headerShown: false }}
-            />
-            <Stack.Screen
-               name="(auth)/signup"
-               options={{ headerShown: false }}
-            />
-         </Stack>
+         <SafeAreaView style={{ flex: 1 }}>
+            <Stack
+               screenOptions={{
+                  headerStyle: {
+                     backgroundColor: 'red'
+                  },
+                  headerTintColor: '#fff',
+                  headerTitleStyle: {
+                     fontWeight: 'bold'
+                  }
+               }}
+            >
+               <Stack.Screen
+                  name="index"
+                  options={{ headerShown: false }}
+               />
+               <Stack.Screen
+                  name="(auth)/signup"
+                  options={{ headerShown: false }}
+               />
+               <Stack.Screen
+                  name="(auth)/verify"
+                  options={{ headerShown: false }}
+               />
+            </Stack>
+         </SafeAreaView>
       </RootSiblingParent>
    )
 }
