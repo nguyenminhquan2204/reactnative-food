@@ -6,7 +6,7 @@ import ShareButton from 'components/button/share.button';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import { APP_COLOR } from 'utils/constant';
-import { Link, Redirect } from 'expo-router';
+import { Link, Redirect, router } from 'expo-router';
 
 const styles = StyleSheet.create({
    container: {
@@ -103,7 +103,7 @@ const WelcomePage = () => {
                   <View>
                      <ShareButton
                         title='Đăng nhập với email'
-                        onPress={() => { alert('Hello') }}
+                        onPress={() => {router.navigate("/(auth)/login")}}
                         textStyle={{ color: '#fff', paddingVertical: 5 }}
                         btnStyle={{
                            justifyContent: 'center',
