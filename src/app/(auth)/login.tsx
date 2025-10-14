@@ -4,10 +4,12 @@ import ShareInput from "@/components/input/share.input";
 import { APP_COLOR } from "@/utils/constant";
 import { Link, router } from "expo-router";
 import { useState } from "react";
-import { View, Text, StyleSheet, Keyboard } from "react-native"
+import { View, Text, StyleSheet, Keyboard, TextInput, Button } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { loginAPI, resendCodeAPI } from '@/utils/api';
 import Toast from "react-native-root-toast";
+import { Formik } from 'formik';
+import { LoginSchema } from "@/utils/validate.schema";
 
 const styles = StyleSheet.create({
    container: {
@@ -20,13 +22,16 @@ const styles = StyleSheet.create({
 const LoginPage = () => {
    const [email, setEmail] = useState<string>('');
    const [password, setPassword] = useState<string>('');
+   const [loading, setLoading] = useState<boolean>(false);
 
    const handleLogin = async () => {
       // console.log(email, password);
       try {
+         setLoading(true);
          const res = await loginAPI(email, password);
          Keyboard.dismiss();
-         if(res.data) {
+         setLoading(false);
+         if (res.data) {
             router.replace('/(tabs)')
          } else {
             const m = Array.isArray(res.message) ? res.message[0] : res.message;
@@ -38,7 +43,7 @@ const LoginPage = () => {
                opacity: 1
             });
 
-            if(res.statusCode === 400) {
+            if (res.statusCode === 400) {
                await resendCodeAPI(email);
                router.replace({
                   pathname: '/(auth)/verify',
@@ -47,13 +52,42 @@ const LoginPage = () => {
             }
          }
       } catch (error) {
-         console.log('>>> check error', error);  
+         console.log('>>> check error', error);
       }
    }
 
    return (
       <SafeAreaView style={{ flex: 1 }}>
-         <View style={styles.container}>
+         <Formik
+            validationSchema={LoginSchema}
+            initialValues={{email: '', password: '' }}
+            onSubmit={ values => console.log("check values = ", values)}
+         >
+         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+            <View style={{ margin: 10 }}>
+               <Text>Email</Text>
+               <TextInput
+                  style={{ borderWidth: 1, borderColor: "#ccc" }}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                  value={values.email}
+               />
+               {errors.email && <Text style={{ color: 'red' }}>{errors.email}</Text>}
+               <View style={{ marginVertical: 10 }}></View>
+               <Text>Password</Text>
+               <TextInput
+                  style={{ borderWidth: 1, borderColor: "#ccc" }}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                  value={values.password}
+               />
+               {errors.password && <Text style={{ color: 'red' }}>{errors.password}</Text>}
+               <View style={{ marginVertical: 10 }}></View>
+               <Button onPress={handleSubmit as any} title="Submit" />
+            </View>
+         )}
+      </Formik>
+         {/* <View style={styles.container}>
             <View>
                <Text style={{
                   fontSize: 25,
@@ -76,6 +110,7 @@ const LoginPage = () => {
             <View style={{ marginVertical: 10 }}></View>
             <ShareButton 
                title='Đăng nhập'
+               loading={loading}
                onPress={handleLogin}
                textStyle={{
                   textTransform: 'uppercase',
@@ -109,8 +144,8 @@ const LoginPage = () => {
             <SocialButton 
                title='Đăng nhập với'
             />
-         </View>
-      </SafeAreaView>
+         </View> */}
+      </SafeAreaView >
    )
 }
 

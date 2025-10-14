@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Pressable, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { View, StyleSheet, Text, Pressable, StyleProp, TextStyle, ViewStyle, ActivityIndicator } from "react-native";
 import { APP_COLOR } from "@/utils/constant";
 import { ReactNode } from "react";
 
@@ -24,17 +24,23 @@ interface IProps {
    pressStyle?:StyleProp<ViewStyle>;
    btnStyle?:StyleProp<ViewStyle>;
    icons?:ReactNode;
+   loading?: boolean;
 }
 
 const ShareButton = (props: IProps) => {
-   const { title, onPress, textStyle, pressStyle, btnStyle, icons } = props;
+   const { loading = false, title, onPress, textStyle, pressStyle, btnStyle, icons } = props;
+
    return (
       <>
-         <Pressable 
+         <Pressable
+            disabled={loading}
             onPress={onPress}
-            style={({ pressed }) => ([{ opacity: pressed === true ? 0.5 : 1 }, pressStyle])}
+            style={({ pressed }) => ([{ opacity: pressed === true || loading ? 0.5 : 1 }, pressStyle])}
          >
             <View style={[styles.container, btnStyle]}>
+               {loading && <ActivityIndicator 
+                  color={'black'}
+               />}
                {icons}
                <Text style={textStyle}>{title}</Text>
             </View>
