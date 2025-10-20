@@ -39,6 +39,12 @@ const styles = StyleSheet.create({
 
 const WelcomePage = () => {
 
+   if(true) {
+      return (
+         <Redirect href={'/(tabs)'} />
+      )
+   }
+
    return (
       <ImageBackground
          style={{ flex: 1 }}

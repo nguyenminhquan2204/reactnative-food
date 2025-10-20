@@ -4,6 +4,8 @@
     "skipLibCheck": true,
     "strict": true,
     "baseUrl": ".",
+    "jsx": "react-native",
+    "types": ["react"],
     "paths": {
       "@/*": [
         "src/*"
