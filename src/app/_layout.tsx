@@ -1,4 +1,5 @@
 
+import {AppProvider} from "@/context/app.context";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -18,42 +19,48 @@ const RootLayout = () => {
       <GestureHandlerRootView>
          <RootSiblingParent>
             <SafeAreaView style={{ flex: 1 }}>
-               <ThemeProvider value={navTheme}>
-                  <Stack
-                     screenOptions={{
-                        headerStyle: {
-                           backgroundColor: 'red'
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                           fontWeight: 'bold'
-                        }
-                     }}
-                  >
-                     <Stack.Screen
-                        name="index"
-                        options={{ headerShown: false }}
-                     />
-                     <Stack.Screen
-                        name="(auth)/login"
-                        options={{ headerShown: false }}
-                     />
-                     <Stack.Screen
-                        name="(auth)/signup"
-                        options={{ headerShown: false }}
-                     />
-                     <Stack.Screen
-                        name="(auth)/verify"
-                        options={{ headerShown: false }}
-                     />
-                     <Stack.Screen
-                        name='(tabs)'
-                        options={{
-                           headerShown: false,
+               <AppProvider>
+                  <ThemeProvider value={navTheme}>
+                     <Stack
+                        screenOptions={{
+                           headerStyle: {
+                              backgroundColor: 'red'
+                           },
+                           headerTintColor: '#fff',
+                           headerTitleStyle: {
+                              fontWeight: 'bold'
+                           }
                         }}
-                     />
-                  </Stack>
-               </ThemeProvider>
+                     >
+                        <Stack.Screen
+                           name="index"
+                           options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                           name="(auth)/login"
+                           options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                           name="(auth)/signup"
+                           options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                           name="(auth)/verify"
+                           options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                           name="(auth)/welcome"
+                           options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                           name='(tabs)'
+                           options={{
+                              headerShown: false,
+                           }}
+                        />
+                     </Stack>
+                  </ThemeProvider>
+               </AppProvider>
             </SafeAreaView>
          </RootSiblingParent>
       </GestureHandlerRootView>

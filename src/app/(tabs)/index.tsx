@@ -3,7 +3,8 @@ import CollectionHome from "@/components/home/collection.home";
 import HeaderHome from "@/components/home/header.home";
 import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
-import { StyleSheet, View } from "react-native";
+import { useCurrentApp } from "@/context/app.context";
+import { Button, StyleSheet } from "react-native";
 
 const data = [
   { key: 1, name: "Top Quán Rating 5* tuần này", ref: "" },
@@ -15,15 +16,17 @@ const HomeTab = () => {
 
   return (
     // <SafeAreaView style={styles.container} edges={[]}>
-    <CustomFlatList
-      data={data}
-      style={styles.list}
-      renderItem={({ item }) => <CollectionHome name={item.name} /> }
-      HeaderComponent={<HeaderHome />}
-      StickyElementComponent={<SearchHome />}
-      // TopListElementComponent={<View style={styles.topList} />}
-      TopListElementComponent={<TopListHome />}
-    />
+    <>
+      <CustomFlatList
+        data={data}
+        style={styles.list}
+        renderItem={({ item }) => <CollectionHome name={item.name} />}
+        HeaderComponent={<HeaderHome />}
+        StickyElementComponent={<SearchHome />}
+        // TopListElementComponent={<View style={styles.topList} />}
+        TopListElementComponent={<TopListHome />}
+      />
+    </>
     // </SafeAreaView>
   );
 }
