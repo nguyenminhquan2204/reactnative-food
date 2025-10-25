@@ -18,7 +18,7 @@ const RootLayout = () => {
    return (
       <GestureHandlerRootView>
          <RootSiblingParent>
-            <SafeAreaView style={{ flex: 1 }}>
+            {/* <SafeAreaView style={{ flex: 1 }}> */}
                <AppProvider>
                   <ThemeProvider value={navTheme}>
                      <Stack
@@ -58,10 +58,14 @@ const RootLayout = () => {
                               headerShown: false,
                            }}
                         />
+                        <Stack.Screen 
+                           name='product/[id]'
+                           options={{ headerShown: false }}
+                        />
                      </Stack>
                   </ThemeProvider>
                </AppProvider>
-            </SafeAreaView>
+            {/* </SafeAreaView> */}
          </RootSiblingParent>
       </GestureHandlerRootView>
    )

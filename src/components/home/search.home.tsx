@@ -23,7 +23,7 @@ const SearchHome = () => {
             color='black'
          />
          <Text style={{
-            color: '#707070'
+            color: '#707070f'
          }}>Deal Hot hôm nay từ 0đ ... </Text>
       </View>
    )
