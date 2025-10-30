@@ -4,46 +4,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { Text } from 'react-native';
+import { ErrorBoundary } from './_layout';
 
-// Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 const RootPage = () => {
    const { setAppState } = useCurrentApp();
 
    useEffect(() => {
-      async function prepare() {
+      (async () => {
          try {
-            const fetchAccount = async () => {
-               const res = await getAccountAPI();
-               if (res.data) {
-                  // success
-                  setAppState({
-                     user: res.data.user,
-                     access_token: await AsyncStorage.getItem('access_token')
-                  })
-                  router.replace('/(tabs)');
-                  // await AsyncStorage.removeItem('access_token');
-               } else {
-                  // error
-                  router.replace('/(auth)/welcome');
-               }
+            const res = await getAccountAPI();
+            if (res.data) {
+               setAppState({
+                  user: res.data.user,
+                  access_token: await AsyncStorage.getItem('access_token')
+               });
+               router.replace('/(tabs)');
+            } else {
+               router.replace('/(auth)/welcome');
             }
-            fetchAccount();
-         } catch (error) {
-            console.warn(error);
+         } catch (e: any) {
+            console.error('Backend not connected:', e);
+            throw new Error('Not connect to backend! Please check again.');
          } finally {
             await SplashScreen.hideAsync();
          }
-      }
-      prepare();
+      })();
    }, []);
 
    return (
-      <>
-
-      </>
+      <></>
    )
-}
+};
 
 export default RootPage;

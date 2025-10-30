@@ -1,11 +1,12 @@
 import { currencyFormatter, getURLBaseBackend, processDataRestaurantMenu } from '@/utils/api';
 import { APP_COLOR } from '@/utils/constant';
-import { AntDesign } from '@expo/vector-icons';
 import { useRef, useState } from 'react';
 import { Dimensions, FlatList, Image, SectionList, StyleSheet, Text, TouchableOpacity, View, ViewToken } from 'react-native';
 import Animated, { Extrapolation, interpolate, interpolateColor, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import Info from './info';
 import StickyHeader from './sticky.header';
+import ItemQuantity from './order/item.quantity';
+import StickyFooter from './order/sticky.footer';
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
@@ -207,37 +208,13 @@ const RMain = (props: IProps) => {
                 stickySectionHeadersEnabled={false}
                 contentContainerStyle={{
                     paddingTop: IMAGE_HEIGHT + INFO_HEIGHT + SLIDE_MENU_HEIGHT - 2,
-                    paddingBottom: 30,
+                    paddingBottom: 50,
                 }}
                 sections={processDataRestaurantMenu(restaurant)}
                 renderItem={({ item, index }: { item: any, index: any }) => {
                     const menuItem = item as IMenuItem;
 
-                    return (
-                        <View style={{
-                            backgroundColor: "white",
-                            gap: 10, flexDirection: "row", padding: 10
-                        }}>
-                            <View>
-                                <Image
-                                    style={{ height: 100, width: 100 }}
-                                    source={{ uri: `${getURLBaseBackend()}/images/menu-item/${menuItem?.image}` }}
-                                />
-                            </View>
-                            <View style={{ flex: 1, gap: 10 }}>
-                                <View><Text>{menuItem.title}</Text></View>
-                                <View><Text>{menuItem.description}</Text></View>
-                                <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <Text style={{ color: APP_COLOR.ORANGE }}>{currencyFormatter(menuItem.basePrice)}</Text>
-                                    <AntDesign
-                                        name="plus-circle"
-                                        size={24}
-                                        color={APP_COLOR.ORANGE}
-                                    />
-                                </View>
-                            </View>
-                        </View>
-                    )
+                    return (<ItemQuantity menuItem={menuItem} restaurant={restaurant} />)
                 }}
                 renderSectionHeader={({ section }: { section: any }) => (
 
@@ -258,6 +235,8 @@ const RMain = (props: IProps) => {
                 onViewableItemsChanged={onViewableItemsChanged}
                 onMomentumScrollEnd={() => (blockUpdateRef.current = false)}
             />
+
+            <StickyFooter restaurant={restaurant} />
         </View>
     );
 };

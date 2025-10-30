@@ -29,13 +29,13 @@ export const getAccountAPI = () => {
 
 export const getTopRestaurant = async (ref: string) => {
    const url = `/api/v1/restaurants/${ref}`;
-   await new Promise(resolve => setTimeout(resolve, 3000));
+   // await new Promise(resolve => setTimeout(resolve, 3000));
    return axios.get<IBackendRes<ITopRestaurant[]>>(url);
 }
 
 export const getRestaurantByIdAPI = async (id: string) => {
    const url = `/api/v1/restaurants/${id}`;
-   await new Promise(resolve => setTimeout(resolve, 3000));
+   // await new Promise(resolve => setTimeout(resolve, 3000));
    return axios.get<IBackendRes<IRestaurant>>(url);
 }
 
