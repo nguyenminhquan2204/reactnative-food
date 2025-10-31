@@ -33,7 +33,7 @@ const RootLayout = () => {
       ...DefaultTheme,
       colors: {
          ...DefaultTheme.colors,
-         background: 'transparent'
+         background: 'white'
       }
    }
 
@@ -83,6 +83,22 @@ const RootLayout = () => {
                         <Stack.Screen
                            name='product/[id]'
                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen 
+                           name='product/create.modal'
+                           options={{ 
+                              headerShown: false,
+                              presentation: 'transparentModal',
+                              animation: 'fade',
+                           }}
+                        />
+                        <Stack.Screen 
+                           name='product/update.model'
+                           options={{ 
+                              headerShown: false,
+                              presentation: 'transparentModal',
+                              animation: 'fade',
+                           }}
                         />
                      </Stack>
                   </ThemeProvider>

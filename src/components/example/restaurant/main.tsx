@@ -7,6 +7,7 @@ import Info from './info';
 import StickyHeader from './sticky.header';
 import ItemQuantity from './order/item.quantity';
 import StickyFooter from './order/sticky.footer';
+import { useCurrentApp } from '@/context/app.context';
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
@@ -17,12 +18,9 @@ const IMAGE_HEIGHT = 220;
 const INFO_HEIGHT = 250;
 const SLIDE_MENU_HEIGHT = 50;
 
-interface IProps {
-    restaurant: IRestaurant | null;
-}
 
-const RMain = (props: IProps) => {
-    const { restaurant } = props;
+const RMain = () => {
+    const { restaurant, setRestaurant } = useCurrentApp();
     const scrollY = useSharedValue(0);
 
     const sectionListRef = useRef<SectionList>(null);
@@ -214,7 +212,7 @@ const RMain = (props: IProps) => {
                 renderItem={({ item, index }: { item: any, index: any }) => {
                     const menuItem = item as IMenuItem;
 
-                    return (<ItemQuantity menuItem={menuItem} restaurant={restaurant} />)
+                    return (<ItemQuantity isModal={false} menuItem={menuItem} restaurant={restaurant} />)
                 }}
                 renderSectionHeader={({ section }: { section: any }) => (
 

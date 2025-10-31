@@ -85,11 +85,28 @@ declare global {
          items: {
             [key: string]: {
                quantity: number,
-               data: IMenuItem
+               data: IMenuItem,
+               extra?: {
+                  [key: string]: number;
+               }
             }
          }
       }
    }
-
-   
+   // cart: {
+   //    "id-cua-hang-1": {
+   //       sum: 123,
+   //       quantity: 10,
+   //       items: {
+   //          "id-san-pham-1": {
+   //             quantity: 2,
+   //             data: {},
+   //             extra: {
+   //                "size L": 1,
+   //                "size M": 2
+   //             }
+   //          }
+   //       }
+   //    }
+   // }
 }
