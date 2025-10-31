@@ -2,6 +2,7 @@ import { useCurrentApp } from "@/context/app.context";
 import { currencyFormatter } from "@/utils/api";
 import { APP_COLOR } from "@/utils/constant";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
 interface IProps {
@@ -28,7 +29,8 @@ const StickyFooter = (props: IProps) => {
                zIndex: 11,
                position: "absolute",
                bottom: 0,
-               flexDirection: "row"
+               flexDirection: "row",
+               marginBottom: 20
             }}>
                <View style={{
                   flexDirection: "row",
@@ -78,8 +80,10 @@ const StickyFooter = (props: IProps) => {
                   backgroundColor: APP_COLOR.ORANGE,
                }}>
                   <Text style={{ color: "white" }}
-                     onPress={() => alert('Giao hang')}
-                  >Giao hàng</Text>
+                     onPress={() => router.navigate('/product/order')}
+                  >
+                     Giao hàng
+                  </Text>
                </View>
             </View>
          }

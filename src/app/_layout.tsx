@@ -1,5 +1,6 @@
 
 import { AppProvider } from "@/context/app.context";
+import { APP_COLOR } from "@/utils/constant";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { ErrorBoundaryProps, Stack } from "expo-router";
 import { Button, Text, View } from 'react-native';
@@ -41,68 +42,75 @@ const RootLayout = () => {
       <GestureHandlerRootView>
          <RootSiblingParent>
             {/* <SafeAreaView style={{ flex: 1 }}> */}
-               <AppProvider>
-                  <ThemeProvider value={navTheme}>
-                     <Stack
-                        screenOptions={{
-                           headerStyle: {
-                              backgroundColor: 'red'
-                           },
-                           headerTintColor: '#fff',
-                           headerTitleStyle: {
-                              fontWeight: 'bold'
-                           }
+            <AppProvider>
+               <ThemeProvider value={navTheme}>
+                  <Stack
+                     screenOptions={{
+                        headerStyle: {
+                           backgroundColor: 'white'
+                        },
+                        headerTintColor: APP_COLOR.ORANGE,
+                        headerTitleStyle: {
+                           // fontWeight: 'bold',
+                           color: 'black'
+                        }
+                     }}
+                  >
+                     <Stack.Screen
+                        name="index"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name="(auth)/login"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name="(auth)/signup"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name="(auth)/verify"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name="(auth)/welcome"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name='(tabs)'
+                        options={{
+                           headerShown: false,
                         }}
-                     >
-                        <Stack.Screen
-                           name="index"
-                           options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                           name="(auth)/login"
-                           options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                           name="(auth)/signup"
-                           options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                           name="(auth)/verify"
-                           options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                           name="(auth)/welcome"
-                           options={{ headerShown: false }}
-                        />
-                        <Stack.Screen
-                           name='(tabs)'
-                           options={{
-                              headerShown: false,
-                           }}
-                        />
-                        <Stack.Screen
-                           name='product/[id]'
-                           options={{ headerShown: false }}
-                        />
-                        <Stack.Screen 
-                           name='product/create.modal'
-                           options={{ 
-                              headerShown: false,
-                              presentation: 'transparentModal',
-                              animation: 'fade',
-                           }}
-                        />
-                        <Stack.Screen 
-                           name='product/update.model'
-                           options={{ 
-                              headerShown: false,
-                              presentation: 'transparentModal',
-                              animation: 'fade',
-                           }}
-                        />
-                     </Stack>
-                  </ThemeProvider>
-               </AppProvider>
+                     />
+                     <Stack.Screen
+                        name='product/[id]'
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name='product/create.modal'
+                        options={{
+                           headerShown: false,
+                           presentation: 'transparentModal',
+                           animation: 'fade',
+                        }}
+                     />
+                     <Stack.Screen
+                        name='product/update.model'
+                        options={{
+                           headerShown: false,
+                           presentation: 'transparentModal',
+                           animation: 'fade',
+                        }}
+                     />
+                     <Stack.Screen
+                        name='product/order'
+                        options={{
+                           headerTitle: "Xác nhận đơn hàng",
+                        }}
+                     />
+                  </Stack>
+               </ThemeProvider>
+            </AppProvider>
             {/* </SafeAreaView> */}
          </RootSiblingParent>
       </GestureHandlerRootView>

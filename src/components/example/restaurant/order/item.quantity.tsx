@@ -1,9 +1,5 @@
 import { useCurrentApp } from "@/context/app.context";
-import { currencyFormatter, getURLBaseBackend } from "@/utils/api";
-import { APP_COLOR } from "@/utils/constant";
-import { AntDesign } from '@expo/vector-icons';
 import { router } from "expo-router";
-import { Image, Pressable, Text, View } from "react-native";
 import ItemSingle from "./item.single";
 
 interface IProps {
